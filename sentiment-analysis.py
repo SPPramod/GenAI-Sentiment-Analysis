@@ -30,12 +30,6 @@ def add_background():
             color: black !important;
         }
 
-        /* Force text color inside widgets */
-        .stMarkdown, .stTextInput, .stTextArea, .stButton, .stAlert {
-            color: black !important;
-        }
-
-        /* Override Streamlit's default grayish header colors */
         h1, h2, h3, h4, h5, h6, p, label, span, div {
             color: black !important;
         }
@@ -45,6 +39,10 @@ def add_background():
         .stButton > button {
             background-color: white;
             color: black;
+        }
+
+        .stAlert {
+            color: black !important;
         }
         </style>
         """,
@@ -58,7 +56,11 @@ st.write("Analyze sentiment (Positive, Neutral, Negative) using a fine-tuned RoB
 
 @st.cache_resource
 def load_model():
-    return pipeline("sentiment-analysis", model="cardiffnlp/twitter-roberta-base-sentiment")
+    return pipeline(
+        "sentiment-analysis",
+        model="cardiffnlp/twitter-roberta-base-sentiment",
+        framework="pt" 
+    )
 
 sentiment_pipeline = load_model()
 
